@@ -46,7 +46,7 @@ namespace Example.TodoWebApp.Bussiness.Services
                         Description = work.Description,
                         Image = work.Image,
                         Title = work.Title,
-                        IsComplated = work.IsComplated,
+                        IsCompleted = work.IsCompleted,
                     });
                 }
             }
