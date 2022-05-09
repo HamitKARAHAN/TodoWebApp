@@ -2,11 +2,6 @@
 using Example.TodoWebApp.Bussiness.Interfaces;
 using Example.TodoWebApp.Data.Domains;
 using Example.TodoWebApp.Data.UnitofWork;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Example.TodoWebApp.Bussiness.Services
 {
@@ -51,6 +46,42 @@ namespace Example.TodoWebApp.Bussiness.Services
                 }
             }
             return workList;
+        }
+
+        public async Task<WorkListDto> GetById(object id)
+        {
+            var workItem = await _unitofWork.GetRepository<Work>().GetById(id);
+            if (workItem != null)
+            {
+                return new()
+                {
+                    Description =workItem.Description,
+                    Image = workItem.Image,
+                    Title = workItem.Title,
+                    IsCompleted = workItem.IsCompleted
+                };
+            }
+            return null;
+        }
+
+        public async Task Remove(object id)
+        {
+            var work = await _unitofWork.GetRepository<Work>().GetById(id);
+            _unitofWork.GetRepository<Work>().Delete(work);
+            await _unitofWork.SaveChanges();
+        }
+
+        public async Task Update(WorkUpdateDto dto)
+        {
+            _unitofWork.GetRepository<Work>().Update(new()
+            {
+                Description=dto.Description,
+                Id = dto.Id,
+                Image = dto.Image,
+                IsCompleted = dto.IsCompleted,
+                Title = dto.Title
+            });
+            await _unitofWork.SaveChanges();
         }
     }
 }

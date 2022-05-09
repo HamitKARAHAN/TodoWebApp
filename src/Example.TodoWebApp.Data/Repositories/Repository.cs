@@ -21,7 +21,7 @@ namespace Example.TodoWebApp.Data.Repositories
 
         public void Delete(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(entity);
         }
 
         public async Task<List<T>> GetAll()
