@@ -1,6 +1,12 @@
-﻿namespace Example.TodoWebApp.Data.Domains
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Example.TodoWebApp.Bussiness.DTO.TodoDtos
 {
-    public class Work
+    public class WorkListDto
     {
         public int Id { get; set; }
         public string Title { get; set; }
