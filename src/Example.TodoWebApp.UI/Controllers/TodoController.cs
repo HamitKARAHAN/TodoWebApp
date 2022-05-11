@@ -17,7 +17,8 @@ namespace Example.TodoWebApp.UI.Controllers
 
         public async Task<IActionResult> List()
         {
-            return View(await _workService.GetAll());
+            var response = await _workService.GetAll();
+            return View(response.Data);
         }
 
         [HttpGet]
@@ -33,9 +34,11 @@ namespace Example.TodoWebApp.UI.Controllers
             return RedirectToAction("List");
         }
 
+        [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
-            return View(await _workService.GetById<WorkUpdateDto>(id));
+            var response = await _workService.GetById<WorkUpdateDto>(id);
+            return View(response.Data);
         }
 
         [HttpPost]

@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Example.TodoWebApp.Data\Example.TodoWebApp.Data.csproj" />
+    <ProjectReference Include="..\Example.TodoWebApp.Global\Example.TodoWebApp.Global.csproj" />
   </ItemGroup>
 
   <ItemGroup>
