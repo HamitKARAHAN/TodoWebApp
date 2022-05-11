@@ -1,6 +1,8 @@
 ﻿using Example.TodoWebApp.Bussiness.DTO.TodoDtos;
 using Example.TodoWebApp.Bussiness.Interfaces;
+using Example.TodoWebApp.UI.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using static Example.TodoWebApp.Global.Utils.Enums;
 
 namespace Example.TodoWebApp.UI.Controllers
 {
@@ -21,7 +23,6 @@ namespace Example.TodoWebApp.UI.Controllers
             return View(response.Data);
         }
 
-        [HttpGet]
         public IActionResult Create()
         {
             return View(new WorkCreateDto());
@@ -30,29 +31,29 @@ namespace Example.TodoWebApp.UI.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(WorkCreateDto todo)
         {
-            await _workService.Create(todo);
-            return RedirectToAction("List");
+            return this.ResponseRedirectToAction(await _workService.Create(todo), "List");
         }
 
-        [HttpGet]
         public async Task<IActionResult> Update(int id)
         {
             var response = await _workService.GetById<WorkUpdateDto>(id);
-            return View(response.Data);
+            return this.ResponseRedirectToView(await _workService.GetById<WorkUpdateDto>(id));
         }
 
         [HttpPost]
         public async Task<IActionResult> Update(WorkUpdateDto todo)
         {
-            await _workService.Update(todo);
-            return RedirectToAction("List");
+            return this.ResponseRedirectToAction(await _workService.Update(todo), "List");
         }
 
-        [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            await _workService.Delete(id);
-            return RedirectToAction("List");
+            return this.ResponseRedirectToAction(await _workService.Delete(id), "List");
+        }
+
+        public IActionResult NotFoundPage()
+        {
+            return View();
         }
     }
 }

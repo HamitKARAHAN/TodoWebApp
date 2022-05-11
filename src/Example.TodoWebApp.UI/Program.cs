@@ -10,6 +10,8 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 
+app.UseStatusCodePagesWithReExecute("/Todo/NotFoundPage", "?statusCode={0}");
+
 app.UseStaticFiles(new StaticFileOptions()
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "node_modules")),

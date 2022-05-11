@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Example.TodoWebApp.Bussiness.DTO.TodoDtos;
+using Example.TodoWebApp.Bussiness.Extensions;
 using Example.TodoWebApp.Bussiness.Interfaces;
 using Example.TodoWebApp.Data.Domains;
 using Example.TodoWebApp.Data.UnitofWork;
@@ -38,17 +39,7 @@ namespace Example.TodoWebApp.Bussiness.Services
                 await _unitofWork.SaveChanges();
                 return new BaseResponseModel<WorkCreateDto>(ResponseType.Success, work);
             }
-
-            var errors = new List<CustomValidationErrorModel>();
-            foreach (var error in validationResult.Errors)
-            {
-                errors.Add(new()
-                {
-                    ErrorMessage = error.ErrorMessage,
-                    PropertyName = error.PropertyName
-                });
-            }
-            return new BaseResponseModel<WorkCreateDto>(ResponseType.ValidationError, work, errors);
+            return new BaseResponseModel<WorkCreateDto>(ResponseType.ValidationError, work, validationResult.ConvertToCustomValidator());
         }
 
         public async Task<IResponse<List<WorkListDto>>> GetAll()
@@ -93,19 +84,7 @@ namespace Example.TodoWebApp.Bussiness.Services
                 }
                 return new BaseResponseModel<WorkUpdateDto>(ResponseType.NotFound, $"Task couldn't found. Task id : {dto.Id}");
             }
-
-            var errors = new List<CustomValidationErrorModel>();
-
-            foreach (var error in validationResult.Errors)
-            {
-                errors.Add(new()
-                {
-                    ErrorMessage = error.ErrorMessage,
-                    PropertyName = error.PropertyName
-                });
-            }
-
-            return new BaseResponseModel<WorkUpdateDto>(ResponseType.ValidationError, dto, errors);
+            return new BaseResponseModel<WorkUpdateDto>(ResponseType.ValidationError, dto, validationResult.ConvertToCustomValidator());
         }
     }
 }
