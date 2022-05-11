@@ -19,7 +19,6 @@ namespace Example.TodoWebApp.Bussiness.Services
             await _unitofWork.GetRepository<Work>().Create(new()
             {
                 Description = work.Description,
-                Image = work.Image,
                 Title = work.Title,
                 IsCompleted = work.IsCompleted,
                
@@ -39,7 +38,6 @@ namespace Example.TodoWebApp.Bussiness.Services
                     {
                         Id = work.Id,
                         Description = work.Description,
-                        Image = work.Image,
                         Title = work.Title,
                         IsCompleted = work.IsCompleted,
                     });
@@ -48,15 +46,14 @@ namespace Example.TodoWebApp.Bussiness.Services
             return workList;
         }
 
-        public async Task<WorkListDto> GetById(object id)
+        public async Task<WorkListDto> GetById(int id)
         {
-            var workItem = await _unitofWork.GetRepository<Work>().GetById(id);
+            var workItem = await _unitofWork.GetRepository<Work>().GetByFilter(x => x.Id == id);
             if (workItem != null)
             {
                 return new()
                 {
                     Description =workItem.Description,
-                    Image = workItem.Image,
                     Title = workItem.Title,
                     IsCompleted = workItem.IsCompleted
                 };
@@ -77,7 +74,6 @@ namespace Example.TodoWebApp.Bussiness.Services
             {
                 Description=dto.Description,
                 Id = dto.Id,
-                Image = dto.Image,
                 IsCompleted = dto.IsCompleted,
                 Title = dto.Title
             });

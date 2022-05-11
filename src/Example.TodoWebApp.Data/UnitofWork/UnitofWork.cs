@@ -8,7 +8,9 @@ namespace Example.TodoWebApp.Data.UnitofWork
     {
         private readonly TodoContext _context;
 
-        public UnitofWork(TodoContext context)
+        public UnitofWork(
+                TodoContext context
+            )
         {
             _context = context;
         }

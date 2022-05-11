@@ -20,9 +20,6 @@ namespace Example.TodoWebApp.Data.Configurations
 
             builder.Property(x => x.Title).HasMaxLength(20);
             builder.Property(x => x.Title).IsRequired(true);
-
-            builder.Property(x => x.Image).HasMaxLength(100);
-            builder.Property(x => x.Image).IsRequired(true);
         }
     }
 }

@@ -9,7 +9,9 @@ namespace Example.TodoWebApp.Data.Repositories
     {
         private readonly TodoContext _context;
 
-        public Repository(TodoContext context)
+        public Repository(
+                TodoContext context
+            )
         {
             _context = context;
         }

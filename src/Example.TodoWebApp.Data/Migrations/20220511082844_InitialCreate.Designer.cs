@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Example.TodoWebApp.Data.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20220508212106_InitalCreate")]
-    partial class InitalCreate
+    [Migration("20220511082844_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -36,12 +36,7 @@ namespace Example.TodoWebApp.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsComplated")
+                    b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")

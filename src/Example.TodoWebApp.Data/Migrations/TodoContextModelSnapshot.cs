@@ -34,12 +34,7 @@ namespace Example.TodoWebApp.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<bool>("IsComplated")
+                    b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
 
                     b.Property<string>("Title")

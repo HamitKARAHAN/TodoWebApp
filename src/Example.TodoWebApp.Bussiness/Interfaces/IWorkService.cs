@@ -6,7 +6,7 @@ namespace Example.TodoWebApp.Bussiness.Interfaces
     {
         Task<List<WorkListDto>> GetAll();
         Task Create(WorkCreateDto work);
-        Task<WorkListDto> GetById(object id);
+        Task<WorkListDto> GetById(int id);
         Task Remove(object id);
         Task Update(WorkUpdateDto dto);
     }
