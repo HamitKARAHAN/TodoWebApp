@@ -1,10 +1,5 @@
 ﻿using Example.TodoWebApp.Global.BaseObjects.Interfaces;
 using Example.TodoWebApp.Global.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Example.TodoWebApp.Global.BaseObjects.Concrete
 {

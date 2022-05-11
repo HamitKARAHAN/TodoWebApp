@@ -10,7 +10,7 @@ var app = builder.Build();
 
 app.UseStaticFiles();
 
-app.UseStatusCodePagesWithReExecute("/Todo/NotFoundPage", "?statusCode={0}");
+app.UseStatusCodePagesWithReExecute("/notfound", "?statusCode={0}");
 
 app.UseStaticFiles(new StaticFileOptions()
 {
@@ -18,8 +18,11 @@ app.UseStaticFiles(new StaticFileOptions()
     RequestPath = "/node_modules"
 });
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Todo}/{action=List}/{id?}");
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

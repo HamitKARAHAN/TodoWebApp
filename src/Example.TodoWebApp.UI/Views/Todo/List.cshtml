@@ -6,7 +6,7 @@
             <div class="col col-lg-9 col-xl-7">
                 <div class="card rounded-3">
                     <div class="card-body p-4">
-                        <h4 class="text-center my-3 pb-3">To Do App</h4>
+                        <h1 class="list-title text-center my-3 pb-3">To Do App</h1>
                         <div class="text-end my-2">
                             <a asp-action="Create" asp-controller="Todo" class="btn btn-primary btn-sm" >Add Task</a>
                         </div>
@@ -27,8 +27,8 @@
                                         <td>@todo.Description</td>
                                         <td>@(todo.IsCompleted ? "Done" : "Waiting")</td>
                                         <td>
-                                            <a asp-action="Update" asp-controller="Todo" asp-route-id="@todo.Id" class="btn btn-warning btn-sm ms-1">Update</a>
-                                            <a asp-action="Delete" asp-controller="Todo" asp-route-id="@todo.Id" class="btn btn-danger btn-sm">Delete</a>
+                                            <a asp-action="Update" asp-route-id="@todo.Id" class="btn btn-warning btn-sm ms-1">Update</a>
+                                            <a asp-action="Delete" asp-route-id="@todo.Id" class="btn btn-danger btn-sm">Delete</a>
                                         </td>
                                     </tr>
                                 }

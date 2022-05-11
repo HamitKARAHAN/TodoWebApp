@@ -1,5 +1,4 @@
 ﻿using Example.TodoWebApp.Bussiness.Interfaces;
-using System.ComponentModel.DataAnnotations;
 
 namespace Example.TodoWebApp.Bussiness.DTO.TodoDtos
 {

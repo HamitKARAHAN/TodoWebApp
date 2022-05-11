@@ -1,10 +1,5 @@
 ﻿using Example.TodoWebApp.Data.Domains;
 using Example.TodoWebApp.Data.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Example.TodoWebApp.Data.UnitofWork
 {
