@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Example.TodoWebApp.Bussiness.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Example.TodoWebApp.Bussiness.DTO.TodoDtos
 {
-    public class WorkListDto
+    public class WorkListDto : IDto
     {
         public int Id { get; set; }
         public string Title { get; set; }

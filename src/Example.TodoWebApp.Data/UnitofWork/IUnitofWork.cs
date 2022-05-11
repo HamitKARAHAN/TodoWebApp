@@ -1,4 +1,5 @@
-﻿using Example.TodoWebApp.Data.Interfaces;
+﻿using Example.TodoWebApp.Data.Domains;
+using Example.TodoWebApp.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Example.TodoWebApp.Data.UnitofWork
 {
     public interface IUnitofWork
     {
-        IRepository<T> GetRepository<T>() where T : class, new();
+        IRepository<T> GetRepository<T>() where T : BaseEntity;
         Task SaveChanges();
     }
 }

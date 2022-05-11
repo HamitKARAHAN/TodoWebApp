@@ -1,83 +1,73 @@
-﻿using Example.TodoWebApp.Bussiness.DTO.TodoDtos;
+﻿using AutoMapper;
+using Example.TodoWebApp.Bussiness.DTO.TodoDtos;
 using Example.TodoWebApp.Bussiness.Interfaces;
 using Example.TodoWebApp.Data.Domains;
 using Example.TodoWebApp.Data.UnitofWork;
+using FluentValidation;
 
 namespace Example.TodoWebApp.Bussiness.Services
 {
     public class WorkService : IWorkService
     {
         private readonly IUnitofWork _unitofWork;
+        private readonly IMapper _mapper;
+        private readonly IValidator<WorkCreateDto> _createValidator;
+        private readonly IValidator<WorkUpdateDto> _updateValidator;
 
-        public WorkService(IUnitofWork unitofWork)
+        public WorkService(
+                IUnitofWork unitofWork,
+                IMapper mapper, IValidator<WorkCreateDto> createValidator, 
+                IValidator<WorkUpdateDto> updateValidator
+            )
         {
             _unitofWork = unitofWork;
+            _mapper = mapper;
+            _createValidator = createValidator;
+            _updateValidator = updateValidator;
         }
 
         public async Task Create(WorkCreateDto work)
         {
-            await _unitofWork.GetRepository<Work>().Create(new()
+            var validationResult = _createValidator.Validate(work);
+            if (validationResult.IsValid)
             {
-                Description = work.Description,
-                Title = work.Title,
-                IsCompleted = work.IsCompleted,
-               
-            });
-            await _unitofWork.SaveChanges();
+                await _unitofWork.GetRepository<Work>().Create(_mapper.Map<Work>(work));
+                await _unitofWork.SaveChanges();
+            }
         }
 
         public async Task<List<WorkListDto>> GetAll()
         {
-            var response = await _unitofWork.GetRepository<Work>().GetAll();
-            var workList = new List<WorkListDto>();
-            if(response != null && response.Count > 0)
-            {
-                foreach (var work in response)
-                {
-                    workList.Add(new()
-                    {
-                        Id = work.Id,
-                        Description = work.Description,
-                        Title = work.Title,
-                        IsCompleted = work.IsCompleted,
-                    });
-                }
-            }
-            return workList;
+            return _mapper.Map<List<WorkListDto>>(await _unitofWork.GetRepository<Work>().GetAll());
         }
 
-        public async Task<WorkListDto> GetById(int id)
+        public async Task<IDto> GetById<IDto>(int id)
         {
-            var workItem = await _unitofWork.GetRepository<Work>().GetByFilter(x => x.Id == id);
-            if (workItem != null)
-            {
-                return new()
-                {
-                    Description =workItem.Description,
-                    Title = workItem.Title,
-                    IsCompleted = workItem.IsCompleted
-                };
-            }
-            return null;
+            return _mapper.Map<IDto>(await _unitofWork.GetRepository<Work>().GetByFilter(x => x.Id == id));
         }
 
-        public async Task Remove(object id)
+        public async Task Delete(int id)
         {
-            var work = await _unitofWork.GetRepository<Work>().GetById(id);
-            _unitofWork.GetRepository<Work>().Delete(work);
-            await _unitofWork.SaveChanges();
+            var todo = await _unitofWork.GetRepository<Work>().GetByFilter(x => x.Id == id);
+            if(todo != null)
+            {
+                _unitofWork.GetRepository<Work>().Delete(todo);
+                await _unitofWork.SaveChanges();
+            }
         }
 
         public async Task Update(WorkUpdateDto dto)
         {
-            _unitofWork.GetRepository<Work>().Update(new()
+            var validationResult = _updateValidator.Validate(dto);
+            if (validationResult.IsValid)
             {
-                Description=dto.Description,
-                Id = dto.Id,
-                IsCompleted = dto.IsCompleted,
-                Title = dto.Title
-            });
-            await _unitofWork.SaveChanges();
+                var todo = await _unitofWork.GetRepository<Work>().Find(dto.Id);
+                if(todo != null)
+                {
+                    _unitofWork.GetRepository<Work>().Update(_mapper.Map<Work>(dto), todo);
+                    await _unitofWork.SaveChanges();
+                }
+            }
         }
     }
 }
