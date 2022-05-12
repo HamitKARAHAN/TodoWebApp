@@ -2,22 +2,23 @@
 
 <section class="get-in-touch">
     <h5 class="title">Update Todo</h5>
-    <form class="contact-form row" asp-action="Update" method="post">
-        <input type ="hidden" asp-for="Id"/>
+    @using (Html.BeginForm("Update", "Todo", FormMethod.Post, new { @class = "contact-form row" }))
+    {
+        @Html.HiddenFor(x => x.Id)
         <div class="form-field col-lg-12">
-            <input asp-for="Title" placeholder="eg: Shopping" class="input-text js-input" type="text" required >
-            <label class="label" for="Title">Name</label>
+            @Html.TextBoxFor(x => x.Title, new { @class = "input-text js-input", required = "required" })
+            @Html.LabelFor(x => x.Title, "Title", new { @class = "label" })
         </div>
         <div class="form-field col-lg-12">
-            <input asp-for="Description" placeholder="eg: Enter a task here" class="input-text js-input" type="text" required>
-            <label class="label" for="message">Message</label>
+            @Html.TextBoxFor(x => x.Description, new { @class = "input-text js-input", required = "required" })
+            @Html.LabelFor(x => x.Description, "Description", new { @class = "label" })
         </div>
         <div class="form-field form check">
-            <label class="label" for="IsCompleted">Completed</label>
-            <input class="input-text js-input" type="checkbox" asp-for="IsCompleted">
+            @Html.CheckBoxFor(x => x.IsCompleted, new { @class = "input-text js-input"})
+            @Html.LabelFor(x => x.IsCompleted, "Completed", new { @class = "label" })
         </div>
         <div class="form-field col-lg-12">
-            <button class ="submit-btn" type="submit">Save</button>
+            <button class="submit-btn" type="submit">Save</button>
         </div>
-    </form>
+    }
 </section>

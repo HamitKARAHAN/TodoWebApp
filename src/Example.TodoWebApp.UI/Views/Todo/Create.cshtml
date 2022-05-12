@@ -1,22 +1,23 @@
 ﻿@model WorkCreateDto
 
 <section class="get-in-touch">
-    <h1 class="title">Add Todo</h1>
-    <form class="contact-form row" asp-action="Create" method="post">
+    <h5 class="title">Add Todo</h5>
+    @using (Html.BeginForm("Create", "Todo", FormMethod.Post, new { @class = "contact-form row" }))
+    {
         <div class="form-field col-lg-12">
-            <input asp-for="Title" placeholder="eg: Shopping" class="input-text js-input" type="text" required >
-            <label class="label" for="Title">Title</label>
+            @Html.TextBoxFor(x => x.Title, new { @class = "input-text js-input", placeholder = "eg: Shopping", required = "required" })
+            @Html.LabelFor(x => x.Title, "Title", new { @class = "label" })
         </div>
         <div class="form-field col-lg-12">
-            <input asp-for="Description" placeholder="eg: Enter a task here" class="input-text js-input" type="text" required>
-            <label class="label" for="message">Description</label>
+            @Html.TextBoxFor(x => x.Description, new { @class = "input-text js-input", placeholder = "eg: Enter a task here", required = "required" })
+            @Html.LabelFor(x => x.Description, "Description", new { @class = "label" })
         </div>
         <div class="form-field form check">
-            <label class="label" for="IsCompleted">Completed</label>
-            <input class="input-text js-input" type="checkbox" asp-for="IsCompleted">
+            @Html.CheckBoxFor(x => x.IsCompleted, new { @class = "input-text js-input"})
+            @Html.LabelFor(x => x.IsCompleted, "Completed", new { @class = "label" })
         </div>
         <div class="form-field col-lg-12">
-            <button class ="submit-btn" type="submit">Save</button>
+            <button class="submit-btn" type="submit">Save</button>
         </div>
-    </form>
+    }
 </section>
