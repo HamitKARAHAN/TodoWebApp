@@ -19,5 +19,8 @@
         <div class="form-field col-lg-12">
             <button class="submit-btn" type="submit">Save</button>
         </div>
+        <div class="form-field col-lg-12">
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+        </div>
     }
 </section>
