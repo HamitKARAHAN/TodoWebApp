@@ -39,7 +39,6 @@ namespace Example.TodoWebApp.UI.Controllers
         [HttpGet("/update-task/{id:int}")]
         public async Task<IActionResult> Update(int id)
         {
-            var response = await _workService.GetById<WorkUpdateDto>(id);
             return this.ResponseRedirectToView(await _workService.GetById<WorkUpdateDto>(id));
         }
 
