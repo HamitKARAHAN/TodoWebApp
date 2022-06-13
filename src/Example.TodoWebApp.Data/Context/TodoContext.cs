@@ -12,6 +12,7 @@ namespace Example.TodoWebApp.Data.Context
         {
         }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new WorkConfiguration());
