@@ -10,7 +10,7 @@ namespace Example.TodoWebApp.Data.Context
         public TodoContext(
                 DbContextOptions<TodoContext> options) : base(options)
         {
-        }
+        }  
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
